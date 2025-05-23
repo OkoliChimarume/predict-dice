@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predict Dice</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/component.css" />
+    <link rel="stylesheet" href="./css/dice-roll.css" />
+  </head>
+  <body
+    class="prediction-body bg-purple-100 p-7 flex flex-col items-center justify-center min-h-screen"
+  >
+    <section class="flex">
+      <h2 class="level-heading font-bold text-gray-800 mb-1">
+        Level:
+        <b class="level font-extrabold text-pink-600 mb-4" id="level">One</b>
+      </h2>
+    </section>
+    <section
+      class="container bg-white rounded-2xl shadow-xl p-6 text-center relative"
+    >
+      <p id="timer" class="timer"></p>
+      <section id="headings">
+        <h2 class="text-xl font-bold text-gray-800 mb-1">PREDICT THE</h2>
+        <h1 class="text-2xl font-extrabold text-pink-600 mb-4">DICE</h1>
+        <p class="text-sm text-gray-600 mb-6">
+          Predict the dice value and win points!
+        </p>
+      </section>
+
+      <!-- Dice SVG -->
+      <section class="w-32 h-32 mx-auto my-8" id="dice-container">
+        <div id="dice" class="dice">
+          <div class="side one">
+            <div class="dot center"></div>
+          </div>
+          <div class="side two">
+            <div class="dot top-left"></div>
+            <div class="dot bottom-right"></div>
+          </div>
+          <div class="side three">
+            <div class="dot top-left"></div>
+            <div class="dot center"></div>
+            <div class="dot bottom-right"></div>
+          </div>
+          <div class="side four">
+            <div class="dot top-left"></div>
+            <div class="dot top-right"></div>
+            <div class="dot bottom-left"></div>
+            <div class="dot bottom-right"></div>
+          </div>
+          <div class="side five">
+            <div class="dot top-left"></div>
+            <div class="dot top-right"></div>
+            <div class="dot center"></div>
+            <div class="dot bottom-left"></div>
+            <div class="dot bottom-right"></div>
+          </div>
+          <div class="side six">
+            <div class="dot top-left"></div>
+            <div class="dot top-right"></div>
+            <div class="dot center-left"></div>
+            <div class="dot center-right"></div>
+            <div class="dot bottom-left"></div>
+            <div class="dot bottom-right"></div>
+          </div>
+        </div>
+        <audio id="roll-sound" src="asset/audio/dice-roll.mp3"></audio>
+        <audio id="wahwah-sound" src="asset/audio/wahwah.mp3"></audio>
+        <audio id="die-sound" src="asset/audio/die.mp3"></audio>
+        <audio id="success-sound" src="asset/audio/success.mp3"></audio>
+        <audio id="level-up-sound" src="asset/audio/level-up.mp3"></audio>
+      </section>
+
+      <!-- predictions -->
+      <section>
+        <p id="result-text" class="text-gray-700 text-sm mb-4">
+          Choose your prediction below!
+        </p>
+        <div
+          id="prediction-container"
+          class="py-2 flex items-center justify-center gap-2"
+        ></div>
+        <audio id="pop-sound" src="asset/audio/select.mp3"></audio>
+      </section>
+
+      <!-- Roll Button -->
+      <button
+        type="button"
+        id="roll"
+        class="roll-button btn bg-pink-600 hover:bg-pink-700 text-white text-sm font-semibold px-6 py-2 rounded-full transition"
+      >
+        Roll Dice
+      </button>
+      <!-- Error messages -->
+      <p class="mt-4 text-sm text-red-500 font-medium hidden" id="error-msg1">
+        You are out of spins!
+      </p>
+      <p class="mt-4 text-sm text-red-500 font-medium hidden" id="error-msg2">
+        Time Out!
+      </p>
+      <p class="mt-4 text-sm text-red-500 font-medium hidden" id="error-msg3">
+        Wrong Predictions!
+      </p>
+      <p class="mt-4 text-sm text-red-500 font-medium hidden" id="error-msg4">
+        pick a value!
+      </p>
+
+      <!-- timer -->
+      <section class="timer-section hidden" id="timer-section">
+        <h4 class="timer" id="timer">00:00</h4>
+      </section>
+
+      <!-- score -->
+      <section class="score-section" id="score-section">
+        <h4 class="score text-pink-600">Score</h4>
+        <b class="text-gray-800" id="score">0</b>
+      </section>
+    </section>
+  </body>
+  <script src="js/dice-roll.js"></script>
+  <script src="js/main.js"></script>
+</html>

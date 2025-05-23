@@ -1,0 +1,184 @@
+/* Layout & Flex Utilities */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* Width & Height */
+.w-full {
+  width: 100%;
+}
+.max-w-md {
+  max-width: 28rem;
+}
+.w-32 {
+  width: 8rem;
+}
+.h-32 {
+  height: 8rem;
+}
+.max-w-40 {
+  max-width: 10rem;
+}
+.max-h-40 {
+  max-height: 10rem;
+}
+.h-full {
+  height: 100%;
+}
+
+/* Margin */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.my-8 {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+
+/* Padding */
+.p-6 {
+  padding: 1.5rem;
+}
+.p-7 {
+  padding: 1.8rem;
+}
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.px-2 {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* gaps */
+.gap-2 {
+  gap: 7px;
+}
+
+/* Typography */
+.text-sm {
+  font-size: 0.875rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+}
+.text-center {
+  text-align: center;
+}
+.font-bold {
+  font-weight: 700;
+}
+.font-extrabold {
+  font-weight: 800;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.font-medium {
+  font-weight: 500;
+}
+
+/* Text Color */
+.text-gray-600 {
+  color: #4b5563;
+}
+.text-gray-700 {
+  color: #374151;
+}
+.text-gray-800 {
+  color: #1f2937;
+}
+.text-white {
+  color: #ffffff;
+}
+.text-pink-600 {
+  color: #db2777;
+}
+.text-red-500 {
+  color: #ef4444;
+}
+
+/* Backgrounds */
+.bg-white {
+  background-color: #ffffff;
+}
+.bg-purple-100 {
+  background-color: #f3e8ff;
+}
+.bg-pink-600 {
+  background-color: #db2777;
+}
+.hover\:bg-pink-700:hover {
+  background-color: #be185d;
+}
+
+/* Border Radius */
+.rounded-2xl {
+  border-radius: 1rem;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* Shadows */
+.shadow-xl {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Object Fit */
+.object-contain {
+  object-fit: contain;
+}
+
+/* Transitions */
+.transition {
+  transition: all 0.2s ease-in-out;
+}
+
+/* positions */
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+.hidden {
+  display: none;
+}
