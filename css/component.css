@@ -13,6 +13,7 @@
 }
 .max-h-screen {
   max-height: 100vh;
+  margin-top: 3rem;
 }
 
 /* Width & Height */
