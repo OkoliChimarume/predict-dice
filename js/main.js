@@ -92,7 +92,7 @@ function RollDice() {
     //reset predictions
     setTimeout(() => {
       resetPrediction();
-    }, 4500);
+    }, 3500);
   }
 }
 
@@ -105,7 +105,7 @@ function showErrorMessage() {
 
     setTimeout(() => {
       error3.classList.add("hidden");
-    }, 3000);
+    }, 2000);
   }
 }
 
