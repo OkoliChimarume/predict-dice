@@ -2,6 +2,8 @@ const predictValues = [1, 2, 3, 4, 5, 6];
 let prediction;
 let timer = "3:00";
 let level = document.getElementById("level");
+const currentLevel = sessionStorage.getItem("level");
+const levelScore = sessionStorage.getItem("level-score");
 level.dataset.value = 0;
 const diceElement = document.getElementById("dice");
 const rollButton = document.getElementById("roll");
@@ -14,9 +16,28 @@ const wahwah_sound = document.getElementById("wahwah-sound");
 const die_sound = document.getElementById("die-sound");
 const success_sound = document.getElementById("success-sound");
 const level_up_sound = document.getElementById("level-up-sound");
+let pdc = document.getElementById("prediction-countdown");
+let tc = document.getElementById("trails-countdown");
 let lastNumber = 0;
 let score = parseInt(localStorage.getItem("score")) || 0;
+let trial = parseInt(levelScore) || 0;
 const levels = [1, 2, 3, 4];
+let permittedTrials;
+
+if (currentLevel == 4) {
+  permittedTrials = parseInt(sessionStorage.getItem("permitted-trials")) || 16;
+} else if (currentLevel == 3) {
+  permittedTrials = parseInt(sessionStorage.getItem("permitted-trials")) || 20;
+}
+if (currentLevel == 2) {
+  permittedTrials = parseInt(sessionStorage.getItem("permitted-trials")) || 30;
+}
+
+if (currentLevel >= 2) {
+  document.getElementById("bonus").classList.remove("hidden");
+  pdc.innerHTML = 3 - trial;
+  tc.innerHTML = permittedTrials;
+}
 
 // makes score score is not cleared on page reload
 document.addEventListener("DOMContentLoaded", () => {
@@ -73,8 +94,6 @@ function RollDice() {
 
     lastNumber = newNumber;
 
-    console.log(newNumber);
-
     // Remove previous classes
     for (let i = 1; i <= 6; i++) {
       diceElement.classList.remove("show-" + i);
@@ -85,7 +104,7 @@ function RollDice() {
 
     // display Error after a delay
     setTimeout(() => {
-      showErrorMessage();
+      showErrorMessage(3);
       updateScores();
     }, 3000);
 
@@ -96,75 +115,122 @@ function RollDice() {
   }
 }
 
-function showErrorMessage() {
-  if (lastNumber === prediction) {
-    success_sound.play();
-  } else if (lastNumber != prediction) {
-    die_sound.play();
-    error3.classList.remove("hidden");
+function showErrorMessage(error_type) {
+  if (error_type === 3) {
+    if (lastNumber === prediction) {
+      success_sound.play();
+    } else if (lastNumber != prediction) {
+      die_sound.play();
+      error3.classList.remove("hidden");
 
+      setTimeout(() => {
+        error3.classList.add("hidden");
+      }, 2000);
+    }
+  } else if (error_type === 2) {
+    wahwah_sound.play();
+    error2.classList.remove("hidden");
     setTimeout(() => {
-      error3.classList.add("hidden");
+      error2.classList.add("hidden");
+    }, 2000);
+  } else {
+    wahwah_sound.play();
+    error1.classList.remove("hidden");
+    setTimeout(() => {
+      error1.classList.add("hidden");
     }, 2000);
   }
+}
+function showConfetti() {
+  const container = document.getElementById("confetti-container");
+  container.style.display = "flex";
+
+  setTimeout(() => {
+    container.style.display = "none";
+  }, 2200);
 }
 
 function updateScores() {
   let scr = document.getElementById("score");
   if (lastNumber === prediction) {
-    score++;
-    localStorage.setItem("score", score);
+    showConfetti();
+    if (currentLevel >= 2) {
+      trial++;
+      sessionStorage.setItem("level-score", trial);
+    }
+    if (levelScore == 3 && currentLevel >= 2) {
+      score + 5;
+      localStorage.setItem("score", score);
+      setTimeout(() => {
+        resetGame();
+      }, 2300);
+    } else {
+      score++;
+      localStorage.setItem("score", score);
+    }
+  }
+  if (currentLevel >= 2) {
+    permittedTrials--;
+    sessionStorage.setItem("permitted-trials", permittedTrials);
+    pdc.innerHTML = 3 - trial;
+    tc.innerHTML = permittedTrials;
   }
   scr.innerHTML = score;
 }
 
-// const lv1 = document.getElementById("level-btn1");
-// const lv2 = document.getElementById("level-btn2");
-// const lv3 = document.getElementById("level-btn3");
-// const lv4 = document.getElementById("level-btn4");
-
-// lv1.addEventListener("click", () => console.log("hey"));
-// lv2.addEventListener("click", () => handleLevelClick(2));
-// lv3.addEventListener("click", () => handleLevelClick(3));
-// lv4.addEventListener("click", () => handleLevelClick(4));
-
-// function handleLevelClick(number) {
-//   window.location.href = "/prediction-page.html";
-//   updateLevels(number);
-// }
-
-function updateLevels(number) {
-  console.log(number);
-  if (number == 4) {
+function updateLevels() {
+  if (currentLevel == 4) {
     level.innerText = "Four";
-  } else if (number == 3) {
+  } else if (currentLevel == 3) {
     level.innerText = "Three";
-  } else if (number == 2) {
+  } else if (currentLevel == 2) {
     level.innerText = "Two";
   } else {
     level.innerText = "One";
   }
-  number;
+  currentLevel;
 }
 
 function SetTimer() {
+  let minutes;
   const timerParagraph = document.getElementById("timer");
-  timerParagraph.innerText = timer;
+  const timerSection = document.getElementById("timer-section");
+  if (currentLevel == 2) minutes = 15;
+  else if (currentLevel == 3) minutes = 10;
+  else if (currentLevel == 4) minutes = 5;
+  else minutes = 0;
 
-  // let timeLeft = 10;
-  // const timerDisplay = document.getElementById("timer");
+  let seconds = minutes * 60;
 
-  // const countdown = setInterval(() => {
-  //   timeLeft--;
-  //   timerDisplay.textContent = timeLeft;
+  const interval = setInterval(() => {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
 
-  //   if (timeLeft <= 0) {
-  //     clearInterval(countdown);
-  //     timerDisplay.textContent = "Time's up!";
-  //   }
-  // }, 1000);
+    timerParagraph.textContent = `${min.toString().padStart(2, "0")}:${sec
+      .toString()
+      .padStart(2, "0")}`;
+
+    if (seconds === 0 && currentLevel >= 2) {
+      showErrorMessage(2);
+      clearInterval(interval);
+      setTimeout(() => {
+        resetGame();
+      }, 2300);
+    }
+    if (permittedTrials === 0 && currentLevel >= 2) {
+      showErrorMessage(1);
+      clearInterval(interval);
+      setTimeout(() => {
+        resetGame();
+      }, 2300);
+    }
+
+    seconds--;
+  }, 1000);
+  if (currentLevel >= 2) {
+    timerSection.classList.remove("hidden");
+  }
 }
-PredictButtons();
 
 function resetPrediction() {
   const buttons = document.querySelectorAll(".predict-val");
@@ -173,3 +239,14 @@ function resetPrediction() {
     btn.classList.remove("active-val");
   });
 }
+function resetGame() {
+  resetPrediction();
+  sessionStorage.setItem("level", 1);
+  sessionStorage.setItem("permitted-trials", 0);
+  sessionStorage.setItem("level-score", 0);
+  window.location.href = "index.html";
+}
+
+SetTimer();
+updateLevels();
+PredictButtons();

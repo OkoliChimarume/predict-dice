@@ -13,19 +13,47 @@
         <img src="asset/logos/logo2.png" alt="Dice" class="logo2" />
       </div>
       <div class="level-container" id="level-container">
-        <button type="button" id="level-btn1" class="level-btn">
+        <a
+          type="button"
+          id="level-btn1"
+          href="/prediction-page.html"
+          onclick="
+sessionStorage.setItem('level', 1)"
+          class="level-btn"
+        >
           Level One
-        </button>
+        </a>
 
-        <button type="button" id="level-btn2" class="level-btn">
+        <a
+          type="button"
+          id="level-btn2"
+          href="/prediction-page.html"
+          class="level-btn"
+          onclick="
+sessionStorage.setItem('level', 2)"
+        >
           Level Two
-        </button>
-        <button type="button" id="level-btn3" class="level-btn">
+        </a>
+        <a
+          type="button"
+          id="level-btn3"
+          href="/prediction-page.html"
+          class="level-btn"
+          onclick="
+sessionStorage.setItem('level', 3)"
+        >
           Level Three
-        </button>
-        <button type="button" id="level-btn4" class="level-btn">
+        </a>
+        <a
+          type="button"
+          id="level-btn4"
+          href="/prediction-page.html"
+          class="level-btn"
+          onclick="
+sessionStorage.setItem('level', 4)"
+        >
           Level Four
-        </button>
+        </a>
       </div>
     </header>
   </body>

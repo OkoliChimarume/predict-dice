@@ -13,7 +13,6 @@
 }
 .max-h-screen {
   max-height: 100vh;
-  margin-top: 3rem;
 }
 
 /* Width & Height */
@@ -59,6 +58,9 @@
 }
 .mt-4 {
   margin-top: 1rem;
+}
+.mt-10 {
+  margin-top: 3rem;
 }
 
 /* Padding */
