@@ -78,3 +78,7 @@ _Bonus:_ for level 2-4, 3 correct guesses gives 5 bonus points.
 - Dice roll animation
 - Sound effects for actions
 - confetti animation
+
+### Extra Features
+- Leaderboard for high scores
+- keyboard/mouse control support

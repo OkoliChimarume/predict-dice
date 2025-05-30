@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   scr.innerHTML = score;
 });
 
+// create and populate the prediction buttons
 function PredictButtons() {
   const prediction_container = document.getElementById("prediction-container");
   predictValues.forEach((value) => {
@@ -60,6 +61,8 @@ function PredictButtons() {
     prediction_container.appendChild(predictBtn);
   });
 }
+
+// save the selected prediction value and add the select state design
 function SavePredictions(value) {
   prediction = value;
   const buttons = document.querySelectorAll(".predict-val");
@@ -72,8 +75,10 @@ function SavePredictions(value) {
   }
 }
 
+// access the roll dice button
 rollButton.addEventListener("click", () => RollDice());
 
+// function for the roll dice, it activates the dice rolling animation
 function RollDice() {
   if (!prediction) {
     error4.classList.remove("hidden");
@@ -115,6 +120,7 @@ function RollDice() {
   }
 }
 
+// displays errors depending on the argument passed
 function showErrorMessage(error_type) {
   if (error_type === 3) {
     if (lastNumber === prediction) {
@@ -141,32 +147,43 @@ function showErrorMessage(error_type) {
     }, 2000);
   }
 }
+// handles the confetti animation effect, this comes up after a successful prediction
 function showConfetti() {
   const container = document.getElementById("confetti-container");
   container.style.display = "flex";
 
   setTimeout(() => {
     container.style.display = "none";
-  }, 2200);
+  }, 2100);
+}
+function showYouWon() {
+  const container = document.getElementById("won-container");
+  container.style.display = "flex";
+
+  setTimeout(() => {
+    container.style.display = "none";
+  }, 2100);
 }
 
+//updates and saves score
 function updateScores() {
   let scr = document.getElementById("score");
   if (lastNumber === prediction) {
-    showConfetti();
     if (currentLevel >= 2) {
       trial++;
       sessionStorage.setItem("level-score", trial);
     }
-    if (levelScore == 3 && currentLevel >= 2) {
-      score + 5;
+    if (trial == 3 && currentLevel >= 2) {
+      score += 5;
       localStorage.setItem("score", score);
+      showYouWon();
       setTimeout(() => {
         resetGame();
       }, 2300);
     } else {
       score++;
       localStorage.setItem("score", score);
+      showConfetti();
     }
   }
   if (currentLevel >= 2) {
@@ -178,6 +195,7 @@ function updateScores() {
   scr.innerHTML = score;
 }
 
+// updates the level header content
 function updateLevels() {
   if (currentLevel == 4) {
     level.innerText = "Four";
@@ -191,6 +209,7 @@ function updateLevels() {
   currentLevel;
 }
 
+//sets the timer for levels above one
 function SetTimer() {
   let minutes;
   const timerParagraph = document.getElementById("timer");
@@ -232,6 +251,7 @@ function SetTimer() {
   }
 }
 
+// deletes prediction
 function resetPrediction() {
   const buttons = document.querySelectorAll(".predict-val");
   prediction = 0;
@@ -239,6 +259,8 @@ function resetPrediction() {
     btn.classList.remove("active-val");
   });
 }
+
+// resets game and navigates back to home
 function resetGame() {
   resetPrediction();
   sessionStorage.setItem("level", 1);
